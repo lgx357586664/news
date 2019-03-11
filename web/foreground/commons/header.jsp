@@ -1,3 +1,6 @@
+<%@ page import="com.zr.service.NewsTypeService" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.zr.entity.NewsType" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="row">
     <div class="col-md-8">
@@ -16,24 +19,19 @@
                     <li class="active">
                         <a href="#">首页</a>
                     </li>
-                    <li>
-                        <a href="#">娱乐新闻</a>
-                    </li>
-                    <li>
-                        <a href="#">政治新闻</a>
-                    </li>
-                    <li>
-                        <a href="#">经济新闻</a>
-                    </li>
-                    <li>
-                        <a href="#">文化新闻</a>
-                    </li>
-                    <li>
-                        <a href="#">小道新闻</a>
-                    </li>
-                    <li>
-                        <a href="news?action=list&typeId=6">屌炸天新闻</a>
-                    </li>
+                    <%
+                        NewsTypeService service =new NewsTypeService();
+                        List<NewsType> list=service.findAll();
+                        if(list!=null){
+                            for (NewsType newsTypes:list) {
+                    %>
+                            <li>
+                                <a href="#?<%=newsTypes.getTypeId()%>>"><%=newsTypes.getTypeName()%></a>
+                            </li>
+                    <%
+                            }
+                        }
+                    %>
                 </ul>
             </div>
         </nav>
