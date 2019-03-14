@@ -1,6 +1,4 @@
-<%@ page import="com.zr.service.LinkService" %>
-<%@ page import="com.zr.entity.Link" %>
-<%@ page import="java.util.List" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="row">
     <div class="col-md-12">
@@ -8,19 +6,11 @@
             <div class="linkHeader ">友情链接</div>
             <div class="datas" >
                 <ul>
-                    <%
-                        LinkService service=new LinkService();
-                        List<Link> list =service.findAll();
-                        if(list!=null){
-                            for (Link link:list) {
-                    %>
-                    <li>
-                        <a href="<%=link.getLinkUrl()%>" target="_blank "><%=link.getLinkName()%></a>
-                    </li>
-                    <%
-                            }
-                        }
-                    %>
+                   <c:forEach items="${linkList}" var="link">
+                       <li>
+                           <a href="${link.linkUrl}" target="_blank ">${link.linkName}</a>
+                       </li>
+                   </c:forEach>
                 </ul>
             </div>
         </div>

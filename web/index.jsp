@@ -1,9 +1,4 @@
-<%@ page import="com.zr.service.NewsService" %>
-<%@ page import="com.zr.entity.News" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.zr.entity.NewsType" %>
-<%@ page import="com.zr.service.NewsTypeService" %>
-<%@ page import="com.zr.util.DateUtil" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Geng xing
   Date: 2019/3/10
@@ -11,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
   <head>
       <title>天天新闻网</title>
@@ -28,49 +26,78 @@
         <%--  动态引入文件  --%>
         <jsp:include page="foreground/commons/header.jsp"></jsp:include>
         <jsp:include page="foreground/banner.jsp"></jsp:include>
-        <%
-            NewsService service =new NewsService();
-            NewsTypeService typeService=new NewsTypeService();
-            List<NewsType> typeList = typeService.findAll();
-            List<List<News>> newsByType = service.findNewsByType();
-            for (int i = 0; i <newsByType.size() ; i++) {
-                if(i%3==0){
-            %>
+        <c:forEach items="${newsByTypeList}" var="newsList" varStatus="i">
+            <c:if test="${i.index%3==0}">
             <div class="row">
-            <%
-                }
-            %>
-                <div class="col-md-4">
-                    <div class="data_list news_list">
-                        <div class="dataHeader"><%=typeList.get(i).getTypeName()%><span class="more"><a href="#?<%=typeList.get(i).getTypeId()%>">更多...</a></span></div>
-                        <div class="datas">
-                            <ul>
-                                <%
-                                    List<News> newsList = newsByType.get(i);
-                                    if(newsList.get(0).getTypeId()==typeList.get(i).getTypeId()){
-                                        for (News news:newsList) {
-                                            String date = DateUtil.formatDate(news.getPublishDate(), "yyyy-MM-dd");
-                                            String title = news.getTitle().length() >= 10 ? news.getTitle().substring(0, 10) + "..." : news.getTitle();
-                                %>
+            </c:if>
+                <c:forEach items="${newsList}" var="news" varStatus="newsIndex">
+                    <c:if test="${newsIndex.first}">
+                    <c:forEach items="${typeList}" var="type">
+                        <c:if test="${news.typeId==type.typeId}">
+                            <div class="col-md-4">
+                                <div class="data_list news_list">
+                                    <div class="dataHeader">${type.typeName}<span class="more"><a href="#?${type.typeId}">更多...</a></span></div>
+                                    <div class="datas">
+                                        <ul>
+                        </c:if>
+                    </c:forEach>
+                    </c:if>
                                 <li>
-                                    <a href="#?<%=news.getNewsId()%>" title="<%=news.getTitle()%>">[<%=date %>]&nbsp;<%=title%></a>
+                                    <a href="#?${news.newsId}" title="${news.title}">
+                                        [ <fmt:formatDate value="${news.publishDate}" pattern="MM-dd"/> ]&nbsp;
+                                            ${fn:substring(news.title,0,12)}</a>
                                 </li>
-                                <%
-                                        }
-                                    }
-                                %>
-                        </ul>
+                    <c:if test="${newsIndex.last}">
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-                <%
-                    if(i%3==2|| i==newsByType.size()-1){
-                %>
+                    </c:if>
+                </c:forEach>
+            <c:if test="${i.index%3==2 || i.last}">
                 </div>
-                <%
-                    }
-            }
-                %>
+            </c:if>
+        </c:forEach>
+
+
+
+
+
+
+          <%--  <c:forEach items="${newsByTypeList}" var="newsList" varStatus="i">
+                <c:if test="${i.index%3==0}">
+                    <div class="row">
+                </c:if>
+
+
+                        <c:forEach items="${typeList}" var="type">
+
+                                <div class="col-md-4">
+                                <div class="data_list news_list">
+                                <div class="dataHeader">${type.typeName}<span class="more"><a href="#?${type.typeId}">更多...</a></span></div>
+                                <div class="datas">
+                                <ul>
+
+
+                <c:forEach items="${newsList}" var="news" varStatus="newsIndex">
+                    <c:if test="${newsIndex.index.typeId==type.typeId}">
+                    <li>
+                        <a href="#?${news.newsId}" title="${news.title}">
+                            [ <fmt:formatDate value="${news.publishDate}" pattern="MM-dd"/> ]&nbsp;
+                                ${fn:substring(news.title,0,12)}</a>
+                    </li>
+                    </c:if>
+                </c:forEach>
+
+                        </ul>
+                        </div>
+                        </div>
+                        </div>
+                        </c:forEach>
+                <c:if test="${i.index%3==2 || i.last}">
+                    </div>
+                </c:if>
+            </c:forEach>--%>
         <jsp:include page="foreground/commons/link.jsp"></jsp:include>
         <jsp:include page="foreground/commons/footer.jsp"></jsp:include>
     </div>
