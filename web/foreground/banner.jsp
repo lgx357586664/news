@@ -82,7 +82,9 @@
                 <ul>
                     <c:forEach items="${hotNewsList}" var="hotNews">
                         <li>
-                            <a href="#?${hotNews.newsId}" title="${hotNews.title}" >${fn:substring(hotNews.title, 0, 15)}</a>
+                            <a href="#?${hotNews.newsId}" title="${hotNews.title}" >
+                                ${fn:length(hotNews.title)>15?fn:substring(hotNews.title, 0, 15).concat("..."):hotNews.title}
+                            </a>
                         </li>
                     </c:forEach>
                 </ul>

@@ -35,6 +35,9 @@ public class NewsService {
     public List<News> findHotNews(){
         return  dao.findHotNews();
     }
+    public List<News> findClickNews(){
+        return  dao.findClickNews();
+    }
     public List<List<News>> findNewsByType(){
         List<List<News>> listsnewsLists =  new ArrayList<>();
         NewsTypeService service =new NewsTypeService();

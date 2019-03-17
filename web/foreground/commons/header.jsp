@@ -19,7 +19,7 @@
                     </li>
                     <c:forEach items="${typeList}" var="type">
                         <li>
-                            <a href="TypeServlet?id=${type.typeId}">${type.typeName}</a>
+                            <a href="NewsServlet?action=query&typeId=${type.typeId}">${type.typeName}</a>
                         </li>
                     </c:forEach>
                 </ul>

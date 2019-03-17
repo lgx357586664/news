@@ -48,6 +48,12 @@ public class NewsDaoImpl implements NewsDao {
         return getNewsList(sql);
     }
 
+    @Override
+    public List<News> findClickNews() {
+        String sql ="select * from news  order by click desc limit 0,8";
+        return getNewsList(sql);
+    }
+
     public List<News> getNewsList(String sql) {
         List<News> list=new ArrayList<>();
         Connection connection = JdbcUtils.getConnection();
