@@ -15,4 +15,7 @@ public class NewsTypeService {
     public List<NewsType> findAll(){
         return dao.findAll();
     }
+    public NewsType findTypeById(int typeId){
+        return dao.findTypeById(typeId);
+    }
 }

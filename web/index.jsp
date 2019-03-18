@@ -43,7 +43,7 @@
                     </c:forEach>
                     </c:if>
                                 <li>
-                                    <a href="#?${news.newsId}" title="${news.title}">
+                                    <a href="NewsServlet?action=queryOne&newsId=${news.newsId}" title="${news.title}">
                                         [ <fmt:formatDate value="${news.publishDate}" pattern="MM-dd"/> ]&nbsp;
                                             ${fn:substring(news.title,0,12)}</a>
                                 </li>

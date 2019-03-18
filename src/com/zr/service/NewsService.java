@@ -4,6 +4,7 @@ import com.zr.dao.NewsDao;
 import com.zr.dao.daoImpl.NewsDaoImpl;
 import com.zr.entity.News;
 import com.zr.entity.NewsType;
+import com.zr.entity.PageBean;
 import com.zr.util.StringUtil;
 
 import java.util.ArrayList;
@@ -47,5 +48,24 @@ public class NewsService {
             listsnewsLists.add(newsList);
         }
         return listsnewsLists;
+    }
+    public List<News> findNewsListPage(int typeId, PageBean pageBean){
+        List<News> newsList = dao.findNewsListByType(typeId, pageBean);
+        return newsList;
+    }
+    public int findNewsCountByType(int typeId){
+        return dao.findNewsCountByType(typeId);
+    }
+    public News findNewsById(int newsId){
+        dao.addClick(newsId);
+        return dao.findNewsById(newsId);
+    }
+    public List<News> getNewsUpAndDown(int newsId){
+        List<News> list=new ArrayList<>();
+        News upNews = dao.findUpNewsById(newsId);
+        News downNews = dao.findDownNewsById(newsId);
+        list.add(upNews);
+        list.add(downNews);
+        return list;
     }
 }

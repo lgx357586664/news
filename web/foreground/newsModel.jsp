@@ -21,7 +21,7 @@
     <jsp:include page="commons/header.jsp"></jsp:include>
     <div class="row">
         <div class="col-md-8">
-            <jsp:include page="newsList.jsp"></jsp:include>
+            <jsp:include page="${mainJsp}"></jsp:include>
         </div>
         <div class="col-md-4">
                 <div class="data_list "style="height: 300px">
@@ -30,7 +30,7 @@
                     <ul>
                         <c:forEach items="${newNewsList}" var="newNews">
                             <li>
-                            <a href="#?${newNews.newsId}" title="${newNews.title}" >
+                            <a href="NewsServlet?action=queryOne&newsId=${newNews.newsId}" title="${newNews.title}" >
                                     ${fn:length(newNews.title)>15?fn:substring(newNews.title, 0, 15).concat("..."):newNews.title}
                             </a>
                             </li>
@@ -38,13 +38,13 @@
                     </ul>
                 </div>
             </div>
-            <div class="data_list "style="height: 300px">
+            <div class="data_list "style="height: 300px;margin-top: 15px">
                 <div class="dataHeader">热门新闻</div>
                 <div class="datas">
                     <ul>
                         <c:forEach items="${clickNewsList}" var="clickNews">
                             <li>
-                            <a href="#?${clickNews.newsId}" title="${clickNews.title}" >
+                            <a href="NewsServlet?action=queryOne&newsId=${clickNews.newsId}" title="${clickNews.title}" >
                                     ${fn:length(clickNews.title)>15?fn:substring(clickNews.title, 0, 15).concat("..."):clickNews.title}
                             </a>
                             </li>

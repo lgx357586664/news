@@ -1,5 +1,6 @@
 package com.zr.dao;
 
+import com.zr.entity.News;
 import com.zr.entity.NewsType;
 
 import java.util.List;
@@ -10,4 +11,5 @@ import java.util.List;
  */
 public interface NewsTypeDao {
     public List<NewsType> findAll();
+    public NewsType findTypeById(int typeId);
 }
