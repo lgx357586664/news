@@ -29,7 +29,6 @@ public class CommentServlet extends HttpServlet {
             Comment comment=new Comment(Integer.parseInt(newsId),content,ipAddr,new Date(System.currentTimeMillis()));
             CommentService commentService =new CommentService();
             int i = commentService.addComment(comment);
-            System.out.println(i);
             if(i>0){
                 // 将对象转为json字符串
                 String jsonString = JSONObject.toJSONString(comment);

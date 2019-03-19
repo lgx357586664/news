@@ -48,6 +48,7 @@ public class newsServlet extends HttpServlet {
         CommentService commentService=new CommentService();
         //评论查询
         List<Comment> commentList = commentService.queryByNewsId(Integer.parseInt(newsId));
+        System.out.println(commentList);
         request.setAttribute("commentList",commentList);
         request.setAttribute("newsNav",newsNav);
         request.setAttribute("news",news);

@@ -35,12 +35,12 @@ public class CommentDaoImpl implements CommentDao {
     public List<Comment> queryByNewsId(int newsId) {
         String sql="select * from comment where news_id=? order by comment_date desc";
         try {
-            List<Comment> commentList = qr.query(sql, new BeanListHandler<>(Comment.class), newsId);
+            List<Comment> commentList = qr.query(JdbcUtils.getConnection(),sql, new BeanListHandler<>(Comment.class), newsId);
             return commentList;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DataSourceUtil.close();
+            JdbcUtils.close();
         }
         return null;
     }
