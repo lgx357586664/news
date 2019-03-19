@@ -49,18 +49,30 @@ public class NewsDaoImpl implements NewsDao {
         return getNewsList(sql);
     }
 
+
     @Override
     public List<News> findClickNews() {
         String sql ="select * from news  order by click desc limit 0,8";
         return getNewsList(sql);
     }
 
+    /**
+     * 通过类型查询新闻集合  获取每页的数据
+     * @param typeId
+     * @param pageBean
+     * @return
+     */
     @Override
     public List<News> findNewsListByType(int typeId, PageBean pageBean) {
         String sql ="select * from news where type_id="+typeId+" order by publish_date desc limit "+pageBean.getIndex()+","+pageBean.getPageCount();
         return getNewsList(sql);
     }
 
+    /**
+     * 获取新闻总条数
+     * @param typeId
+     * @return
+     */
     @Override
     public int findNewsCountByType(int typeId) {
         String sql="select count(*)  count from news where type_id = ?";
@@ -93,6 +105,12 @@ public class NewsDaoImpl implements NewsDao {
         return 0;
     }
 
+    /**
+     * 联查写typeName的作用是写导航栏需要
+     * 通过newsId查询新闻
+     * @param newsId
+     * @return
+     */
     @Override
     public News findNewsById(int newsId) {
         String sql ="select n.*,t.type_name from newsdb.news n,newsdb.news_type t  where t.type_id=n.type_id and news_id=?";
@@ -136,6 +154,11 @@ public class NewsDaoImpl implements NewsDao {
         return null;
     }
 
+    /**
+     * 查询下一条 >升序 通过newsId查询
+     * @param newsId
+     * @return
+     */
     @Override
     public News findUpNewsById(int newsId) {
         String sql ="select * from newsdb.news  where publish_date>(select publish_date from newsdb.news where news_id=?) order by publish_date asc limit 1";
@@ -179,6 +202,11 @@ public class NewsDaoImpl implements NewsDao {
         return news;
     }
 
+    /**
+     * 查询下一条 <降序   通过newsId查询
+     * @param newsId
+     * @return
+     */
     @Override
     public News findDownNewsById(int newsId) {
         String sql ="select * from newsdb.news  where publish_date<(select publish_date from newsdb.news where news_id=?) order by publish_date desc limit 1";
@@ -222,6 +250,10 @@ public class NewsDaoImpl implements NewsDao {
         return news;
     }
 
+    /**
+     * 访问次数设置
+     * @param newsId
+     */
     @Override
     public void addClick(int newsId) {
         String sql="update news set click=click+1 where news_id=?";
@@ -245,6 +277,11 @@ public class NewsDaoImpl implements NewsDao {
         }
     }
 
+    /**
+     * 对获取新闻集合分装
+     * @param sql
+     * @return
+     */
     public List<News> getNewsList(String sql) {
         List<News> list=new ArrayList<>();
         Connection connection = JdbcUtils.getConnection();

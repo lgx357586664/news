@@ -7,6 +7,12 @@ import com.zr.entity.PageBean;
  * @Date: 2019-03-18 下午 1:09
  */
 public class PageUtil {
+    /**
+     * 一类新闻中做分页
+     * @param typeId
+     * @param pageBean
+     * @return
+     */
     public static String getPager(int typeId, PageBean pageBean){
         StringBuffer sb=new StringBuffer();
         sb.append("<ul class=\"pager\">");

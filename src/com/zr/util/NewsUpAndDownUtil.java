@@ -9,6 +9,11 @@ import java.util.List;
  * @Date: 2019-03-18 下午 6:28
  */
 public class NewsUpAndDownUtil {
+    /**
+     * 在一条新闻的做分页：上下条新闻
+     * @param list
+     * @return
+     */
     public static String getNewsUpAndDown(List<News> list){
         StringBuffer sb=new StringBuffer();
         sb.append("<ul class=\"pager\">");

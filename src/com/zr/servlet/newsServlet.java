@@ -31,27 +31,33 @@ public class newsServlet extends HttpServlet {
         if("query".equals(action)){
             query(request, response);
         }else if("queryOne".equals(action)){
-            String newsId = request.getParameter("newsId");
-            News news = service.findNewsById(Integer.parseInt(newsId));
-            //导航栏
-            String newsNav = NavUtil.getNavNewsById(news.getTypeId(), news.getTypeName(), news.getTitle());
-            List<News> newsUpAndDown = service.getNewsUpAndDown(Integer.parseInt(newsId));
-            //分篇查询
-            String upAndDown = NewsUpAndDownUtil.getNewsUpAndDown(newsUpAndDown);
-
-
-            request.setAttribute("newsNav",newsNav);
-            request.setAttribute("news",news);
-            request.setAttribute("newsUpAndDown",upAndDown);
-            request.setAttribute("mainJsp","newsInfo.jsp");
-            request.getRequestDispatcher("/foreground/newsModel.jsp").forward(request,response);
+            queryOne(request, response);
         }
+    }
+
+    private void queryOne(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String newsId = request.getParameter("newsId");
+        News news = service.findNewsById(Integer.parseInt(newsId));
+        //导航栏
+        String newsNav = NavUtil.getNavNewsById(news.getTypeId(), news.getTypeName(), news.getTitle());
+        //分篇查询
+        List<News> newsUpAndDown = service.getNewsUpAndDown(Integer.parseInt(newsId));
+        String upAndDown = NewsUpAndDownUtil.getNewsUpAndDown(newsUpAndDown);
+
+
+        request.setAttribute("newsNav",newsNav);
+        request.setAttribute("news",news);
+        request.setAttribute("newsUpAndDown",upAndDown);
+        //每条新闻mainJSP用newsInfo.jsp，用的都是一个模板newsModel.jsp
+        request.setAttribute("mainJsp","newsInfo.jsp");
+        request.getRequestDispatcher("/foreground/newsModel.jsp").forward(request,response);
     }
 
     private void query(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String typeId = request.getParameter("typeId");
         String pageIndex = request.getParameter("pageIndex");
         PageBean pageBean =new PageBean();
+        //刚开始获取pageIndex为空，如果不为空，获取的是你读到的pageIndex
         if(!StringUtil.isEmpty(pageIndex)){
             //获取数据索引
             pageBean.setPageIndex(Integer.parseInt(pageIndex));
@@ -62,7 +68,7 @@ public class newsServlet extends HttpServlet {
 
         //获取总条数
         pageBean.setCount(service.findNewsCountByType(Integer.parseInt(typeId)));
-        //一页的数据
+        //一页的数据10条
         List<News> newsList = service.findNewsListPage(Integer.parseInt(typeId), pageBean);
 
         NewsTypeService typeService=new NewsTypeService();
@@ -75,6 +81,7 @@ public class newsServlet extends HttpServlet {
         request.setAttribute("newListPager",newListPager);
         request.setAttribute("newsListNav",newsListNav);
         request.setAttribute("newsList",newsList);
+        //每类新闻mainJSP用newsList.jsp，用的都是一个模板newsModel.jsp
         request.setAttribute("mainJsp","newsList.jsp");
         request.getRequestDispatcher("/foreground/newsModel.jsp").forward(request,response);
     }
