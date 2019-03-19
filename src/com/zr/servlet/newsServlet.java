@@ -1,8 +1,10 @@
 package com.zr.servlet;
 
+import com.zr.entity.Comment;
 import com.zr.entity.News;
 import com.zr.entity.NewsType;
 import com.zr.entity.PageBean;
+import com.zr.service.CommentService;
 import com.zr.service.NewsService;
 import com.zr.service.NewsTypeService;
 import com.zr.util.NavUtil;
@@ -43,8 +45,10 @@ public class newsServlet extends HttpServlet {
         //分篇查询
         List<News> newsUpAndDown = service.getNewsUpAndDown(Integer.parseInt(newsId));
         String upAndDown = NewsUpAndDownUtil.getNewsUpAndDown(newsUpAndDown);
-
-
+        CommentService commentService=new CommentService();
+        //评论查询
+        List<Comment> commentList = commentService.queryByNewsId(Integer.parseInt(newsId));
+        request.setAttribute("commentList",commentList);
         request.setAttribute("newsNav",newsNav);
         request.setAttribute("news",news);
         request.setAttribute("newsUpAndDown",upAndDown);
