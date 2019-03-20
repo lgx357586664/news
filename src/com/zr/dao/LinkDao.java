@@ -13,8 +13,8 @@ public interface LinkDao {
     public List<Link> findAll();
     public int getCount();
     public List<Link> queryLinkPage(PageBean pageBean);
-    public int addLink();
-    public int update(int linkId);
+    public int addLink(Link link);
+    public int update(Link link);
     public int delete(int linkId);
     public Link queryOne(int linkId);
 }

@@ -18,4 +18,10 @@ public class LinkService {
     }
     public int getCount(){return dao.getCount();}
     public List<Link> queryLinkPage(PageBean pageBean){return dao.queryLinkPage(pageBean);}
+    public int addLink(Link link){
+        return dao.addLink(link);
+    }
+    public int delete(int linkId){return dao.delete(linkId);}
+    public Link queryOne(int linkId){return dao.queryOne(linkId);}
+    public int update(Link link){return dao.update(link);}
 }

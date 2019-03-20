@@ -28,19 +28,71 @@ public class LinkServlet extends HttpServlet {
         }else if("add".equals(action)){
             add(request,response);
         }else if("update".equals(action)){
-
+            update(request,response);
         }else if("delete".equals(action)){
-
+            delete(request,response);
         }else if("deleteAll".equals(action)){
-
+            deleteAll(request,response);
+        }else if("queryOne".equals(action)){
+            queryOne(request,response);
         }
     }
+
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request,response);
     }
-    protected void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("add....");
+    protected void queryOne(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("kid");
+        int linkId=-1;
+        if(!StringUtil.isEmpty(id)){
+            linkId=Integer.parseInt(id);
+        }
+        Link link = service.queryOne(linkId);
+        request.setAttribute("link",link);
+        request.getRequestDispatcher("/background/link/linkupdate.jsp").forward(request,response);
+    }
+    protected void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String linkId = request.getParameter("linkId");
+        String linkName = request.getParameter("linkName");
+        String email = request.getParameter("email");
+        String linkUrl = request.getParameter("linkUrl");
+        String linkOrder = request.getParameter("linkOrder");
 
+        Link link=new Link(Integer.parseInt(linkId),linkName,email,linkUrl,Integer.parseInt(linkOrder));
+        int i = service.update(link);
+        response.getWriter().print(""+i);
+    }
+    protected void deleteAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String ids = request.getParameter("ids");
+        String[] id = ids.split(",");
+        int sum=0;
+        for (String linkId: id) {
+            int i = service.delete(Integer.parseInt(linkId));
+            sum+=i;
+        }
+        response.getWriter().print(""+sum);
+
+    }
+    protected void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("kid");
+        int linkId=-1;
+        if(!StringUtil.isEmpty(id)){
+            linkId=Integer.parseInt(id);
+        }
+        int i = service.delete(linkId);
+        response.getWriter().print(""+i);
+
+    }
+    protected void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String linkName = request.getParameter("linkName");
+        String email = request.getParameter("email");
+        String linkUrl = request.getParameter("linkUrl");
+        String linkOrder = request.getParameter("linkOrder");
+
+        Link link=new Link(linkName,email,linkUrl,Integer.parseInt(linkOrder));
+        int i = service.addLink(link);
+        response.getWriter().print(""+i);
 
     }
     protected void query(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -58,7 +110,6 @@ public class LinkServlet extends HttpServlet {
         //获取数据
 
         List<Link> linkList = service.queryLinkPage(pageBean);
-        System.out.println(linkList);
         request.setAttribute("linkList",linkList);
         request.setAttribute("pageBean",pageBean);
         request.getRequestDispatcher("/background/link/linkList.jsp").forward(request,response);

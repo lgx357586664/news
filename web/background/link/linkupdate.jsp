@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2019/3/20 0020
-  Time: 下午 3:48
+  User: Geng xing
+  Date: 2019/3/21
+  Time: 0:05
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -26,7 +26,7 @@
                 <span class="x-red">*</span>链接名称
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="linkName" name="linkName" required="" lay-verify="required"
+                <input value="${link.linkName}" type="text" id="linkName" name="linkName" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -35,7 +35,7 @@
                 <span class="x-red">*</span>联系方式
             </label>
             <div class="layui-input-inline">
-                <input type="email" id="email" name="email" required="" lay-verify="email"
+                <input value="${link.email}" type="email" id="email" name="email" required="" lay-verify="email"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -44,7 +44,7 @@
                 <span class="x-red">*</span>链接地址
             </label>
             <div class="layui-input-inline">
-                <input type="url" id="linkUrl" name="linkUrl" required="" lay-verify="url"
+                <input value="${link.linkUrl}" type="url" id="linkUrl" name="linkUrl" required="" lay-verify="url"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -53,17 +53,19 @@
                 <span class="x-red">*</span>链接排序
             </label>
             <div class="layui-input-inline">
-                <input type="number" id="linkOrder" name="linkOrder" required="" lay-verify="number"
+                <input value="${link.linkOrder}" type="number" id="linkOrder" name="linkOrder" required="" lay-verify="number"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label  class="layui-form-label">
             </label>
-            <button  class="layui-btn" lay-filter="add" lay-submit="">
-                增加
+            <button  class="layui-btn" lay-filter="update" lay-submit="">
+                修改
             </button>
         </div>
+        <input value="${link.linkId}" type="hidden" id="linkId" name="linkId" required="" lay-verify="required"
+               autocomplete="off" class="layui-input">
     </form>
 </div>
 <script>
@@ -72,7 +74,8 @@
         var form = layui.form
             ,layer = layui.layer;
         //监听提交
-        form.on('submit(add)', function(data){
+        form.on('submit(update)', function(data){
+            var linkId = data.field.linkId;
             var linkName = data.field.linkName;
             var email = data.field.email;
             var linkUrl = data.field.linkUrl;
@@ -82,7 +85,8 @@
                 type:"post",
                 url:"<%=request.getContextPath()%>/LinkServlet",
                 data:{
-                    "action":"add",
+                    "action":"update",
+                    "linkId":linkId,
                     "linkName":linkName,
                     "email":email,
                     "linkUrl":linkUrl,
@@ -91,7 +95,7 @@
                 success:function (msg) {
                     if(msg=="1"){
                         //发异步，把数据提交给java
-                        layer.alert("增加成功", {icon: 6},function () {
+                        layer.alert("修改成功", {icon: 6},function () {
                             // 获得frame索引
                             var index = parent.layer.getFrameIndex(window.name);
                             //关闭当前frame
@@ -99,11 +103,11 @@
                             window.parent.location.reload();
                         });
                     }else {
-                        layer.msg("添加失败")
+                        layer.msg("信息不存在，修改失败")
                     }
                 },
                 error:function () {
-                    layer.msg("添加异常")
+                    layer.msg("修改异常")
                 }
             })
 
@@ -114,3 +118,4 @@
 </body>
 
 </html>
+

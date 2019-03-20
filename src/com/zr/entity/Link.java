@@ -61,4 +61,11 @@ public class Link {
         this.linkUrl = linkUrl;
         this.linkOrder = linkOrder;
     }
+
+    public Link(String linkName, String email, String linkUrl, int linkOrder) {
+        this.linkName = linkName;
+        this.email = email;
+        this.linkUrl = linkUrl;
+        this.linkOrder = linkOrder;
+    }
 }

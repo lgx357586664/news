@@ -119,23 +119,81 @@ public class LinkDaoImpl implements LinkDao {
     }
 
     @Override
-    public int addLink() {
+    public int addLink(Link link) {
+        String sql="insert into link (link_name,email,link_url,link_order) values(?,?,?,?)";
+        try {
+            int i = qr.update(JdbcUtils.getConnection(), sql,
+                    link.getLinkName(), link.getEmail(), link.getLinkUrl(), link.getLinkOrder());
+            return i;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtils.close();
+        }
         return 0;
     }
 
     @Override
-    public int update(int linkId) {
+    public int update(Link link) {
+        String sql="update link set link_name=?,email=?,link_url=?,link_order=? where link_id=?";
+        try {
+            int i = qr.update(JdbcUtils.getConnection(), sql,
+                    link.getLinkName(), link.getEmail(), link.getLinkUrl(), link.getLinkOrder(),link.getLinkId());
+            return i;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtils.close();
+        }
         return 0;
     }
 
     @Override
     public int delete(int linkId) {
+        String sql="delete from link where link_id=?";
+        try {
+            int i = qr.update(JdbcUtils.getConnection(), sql, linkId);
+            return i;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtils.close();
+        }
         return 0;
     }
 
     @Override
     public Link queryOne(int linkId) {
-        return null;
+        String sql="select * from link where link_id=?";
+        Connection connection = JdbcUtils.getConnection();
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1,linkId);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                String linkName = rs.getString("link_name");
+                String email = rs.getString("email");
+                String linkUrl = rs.getString("link_url");
+                int linkOrder = rs.getInt("link_order");
+                Link link =  new Link(linkId,linkName,email,linkUrl,linkOrder);
+                return link;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(rs!=null)
+                    rs.close();
+                if(ps!=null)
+                    ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            JdbcUtils.close();
+        }
+        return  null;
     }
 
 }
