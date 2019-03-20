@@ -1,6 +1,7 @@
 package com.zr.dao;
 
 import com.zr.entity.Link;
+import com.zr.entity.PageBean;
 
 import java.util.List;
 
@@ -10,4 +11,10 @@ import java.util.List;
  */
 public interface LinkDao {
     public List<Link> findAll();
+    public int getCount();
+    public List<Link> queryLinkPage(PageBean pageBean);
+    public int addLink();
+    public int update(int linkId);
+    public int delete(int linkId);
+    public Link queryOne(int linkId);
 }

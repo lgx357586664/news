@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="info.jsp"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,18 +17,13 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
 
-    <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="../static/css/font.css">
-    <link rel="stylesheet" href="../static/css/xadmin.css">
-    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
-    <script src="../static/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../static/js/xadmin.js"></script>
+
 
 </head>
 <body class="login-bg">
 
 <div class="login layui-anim layui-anim-up">
-    <div class="message">天天新闻1.0</div>
+    <div class="message">天天新闻1.0-管理系统</div>
     <div id="darkbannerwrap"></div>
 
     <form method="post" class="layui-form" >

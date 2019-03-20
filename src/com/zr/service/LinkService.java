@@ -3,6 +3,7 @@ package com.zr.service;
 import com.zr.dao.LinkDao;
 import com.zr.dao.daoImpl.LinkDaoImpl;
 import com.zr.entity.Link;
+import com.zr.entity.PageBean;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public class LinkService {
     public List<Link> findAll(){
         return dao.findAll();
     }
+    public int getCount(){return dao.getCount();}
+    public List<Link> queryLinkPage(PageBean pageBean){return dao.queryLinkPage(pageBean);}
 }
