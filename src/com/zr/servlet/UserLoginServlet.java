@@ -22,7 +22,6 @@ public class UserLoginServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
 
-        System.out.println("UserLoginServlet.post.....");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         System.out.println("UserLoginServlet.post....."+username+"======="+password);
@@ -36,10 +35,10 @@ public class UserLoginServlet extends HttpServlet {
                 rc =new ResultCode("1001","登陆成功");
             }else {
                 //密码错误
-                rc =new ResultCode("1002","密码不正确");
+                rc =new ResultCode("1002","你是不是不知道密码都不知道？！！");
             }
         }else {
-            rc =new ResultCode("1003","用户名不存在");
+            rc =new ResultCode("1003","你是不是傻，连用户名都不知道？！！");
         }
         response.getWriter().print(JSONObject.toJSONString(rc));
     }
