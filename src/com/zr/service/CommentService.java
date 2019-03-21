@@ -20,4 +20,13 @@ public class CommentService {
     public List<Comment> queryByNewsId(int newsId) {
         return dao.queryByNewsId(newsId);
     }
+
+    public int getCount(){return dao.getCount();}
+
+    public List<Comment> findAll(){return dao.findAll();}
+
+    public int deleteComment(int cId){
+        return dao.deleteComment(cId);
+    }
+    public int deleteComments(int newsId){return dao.deleteComments(newsId);}
 }

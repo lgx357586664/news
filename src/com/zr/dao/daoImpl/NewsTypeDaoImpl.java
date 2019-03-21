@@ -3,6 +3,7 @@ package com.zr.dao.daoImpl;
 import com.zr.dao.NewsTypeDao;
 import com.zr.entity.NewsType;
 import com.zr.framework.JdbcUtils;
+import org.apache.commons.dbutils.QueryRunner;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,7 @@ import java.util.List;
  * @Date: 2019/3/11 0011
  */
 public class NewsTypeDaoImpl implements NewsTypeDao {
+    private QueryRunner qr=new QueryRunner();
     @Override
     public List<NewsType> findAll() {
         List<NewsType> list=new ArrayList<>();
@@ -81,5 +83,48 @@ public class NewsTypeDaoImpl implements NewsTypeDao {
             JdbcUtils.close();
         }
         return null;
+    }
+
+    @Override
+    public int addNewsType(NewsType newsType) {
+        String sql="insert into news_type (type_name) values(?)";
+        try {
+            int i = qr.update(JdbcUtils.getConnection(), sql, newsType.getTypeName());
+            return i;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.close();
+        }
+        return 0;
+    }
+
+    @Override
+    public int updateNewsType(NewsType newsType) {
+        String sql="update news_type set type_name=? where type_id=?";
+        int i = 0;
+        try {
+            i = qr.update(JdbcUtils.getConnection(), sql, newsType.getTypeName(),newsType.getTypeId());
+            return i;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.close();
+        }
+        return 0;
+    }
+
+    @Override
+    public int deleteNewsType(int typeId) {
+        String sql="delete from news_type  where type_id=?";
+        try {
+            int i = qr.update(JdbcUtils.getConnection(), sql, typeId);
+            return i;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.close();
+        }
+        return 0;
     }
 }

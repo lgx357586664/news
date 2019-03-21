@@ -24,7 +24,6 @@ public class UserLoginServlet extends HttpServlet {
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        System.out.println("UserLoginServlet.post....."+username+"======="+password);
         UserService userService =new UserService();
         User user = userService.queryOne(username);
         ResultCode rc = null;

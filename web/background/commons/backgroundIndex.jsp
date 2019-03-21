@@ -138,15 +138,9 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="cate.html">
+                        <a _href="<%=request.getContextPath()%>/background/newsType/typeList.jsp">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>新闻分类维护</cite>
-                        </a>
-                    </li >
-                    <li>
-                        <a _href="cate.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>新闻分类添加</cite>
                         </a>
                     </li >
                 </ul>
@@ -159,15 +153,9 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="city.html">
+                        <a _href="<%=request.getContextPath()%>/background/comment/commentList.jsp">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>评论信息维护</cite>
-                        </a>
-                    </li >
-                    <li>
-                        <a _href="city.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>评论信息添加</cite>
                         </a>
                     </li >
                 </ul>

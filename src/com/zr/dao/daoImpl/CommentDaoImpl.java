@@ -6,8 +6,10 @@ import com.zr.framework.DataSourceUtil;
 import com.zr.framework.JdbcUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +28,7 @@ public class CommentDaoImpl implements CommentDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            DataSourceUtil.close();
+            JdbcUtils.close();
         }
         return 0;
     }
@@ -44,4 +46,62 @@ public class CommentDaoImpl implements CommentDao {
         }
         return null;
     }
+
+    @Override
+    public int getCount() {
+        String sql="select count(*)count from comment ";
+        try {
+            Number count = qr.query(JdbcUtils.getConnection(), sql, new ScalarHandler<>());
+            return count.intValue();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtils.close();
+        }
+        return 0;
+    }
+
+    @Override
+    public List<Comment> findAll() {
+        String sql="select *from comment order by comment_date desc";
+        try {
+            List<Comment> commentList = qr.query(JdbcUtils.getConnection(), sql, new BeanListHandler<>(Comment.class));
+            return commentList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.close();
+        }
+        return null;
+    }
+
+
+    @Override
+    public int deleteComment(int cId) {
+        String sql="delete from comment where c_id=?";
+        try {
+            int i = qr.update(JdbcUtils.getConnection(), sql, cId);
+            return i;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.close();
+        }
+        return 0;
+    }
+
+    @Override
+    public int deleteComments(int newsId) {
+        String sql="delete from comment where news_id=?";
+        try {
+            int i = qr.update(JdbcUtils.getConnection(), sql, newsId);
+            return i;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.close();
+        }
+        return 0;
+    }
+
 }

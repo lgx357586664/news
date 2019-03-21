@@ -27,7 +27,7 @@ public class Comment {
         return cId;
     }
 
-    public void setcId(int cId) {
+    public void setc_id(int cId) {
         this.cId = cId;
     }
 
@@ -35,7 +35,7 @@ public class Comment {
         return newsId;
     }
 
-    public void setNewsId(int newsId) {
+    public void setNews_id(int newsId) {
         this.newsId = newsId;
     }
 

@@ -18,4 +18,7 @@ public class NewsTypeService {
     public NewsType findTypeById(int typeId){
         return dao.findTypeById(typeId);
     }
+    public int addNewsType(NewsType newsType){return dao.addNewsType(newsType);}
+    public int updateNewsType(NewsType newsType){return dao.updateNewsType(newsType);}
+    public int deleteNewsType(int typeId){return dao.deleteNewsType(typeId);}
 }
