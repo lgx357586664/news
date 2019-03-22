@@ -9,10 +9,12 @@
 <html>
 <head>
     <title>新闻添加</title>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
 </head>
-<script type="text/javascript" src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
 <body>
-    <textarea id="TextArea1" cols="20" rows="2" class="ckeditor"></textarea>
+<textarea id="TextArea1" cols="20" rows="2" class="ckeditor"></textarea>
+
 
 </body>
 </html>
+

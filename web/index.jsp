@@ -42,79 +42,22 @@
                         </c:if>
                     </c:forEach>
                     </c:if>
-                                <li>
-                                    <a href="NewsServlet?action=queryOne&newsId=${news.newsId}" title="${news.title}">
-                                        [ <fmt:formatDate value="${news.publishDate}" pattern="MM-dd"/> ]&nbsp;
-                                            ${fn:substring(news.title,0,12)}</a>
-                                </li>
+                                            <li>
+                                                <a href="NewsServlet?action=queryOne&newsId=${news.newsId}" title="${news.title}">
+                                                    [ <fmt:formatDate value="${news.publishDate}" pattern="MM-dd"/> ]&nbsp;
+                                                        ${fn:substring(news.title,0,12)}</a>
+                                            </li>
                 </c:forEach>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-
+                                         </ul>
+                                    </div>
+                                </div>
+                            </div>
             <c:if test="${i.index%3==2 || i.last}">
                 </div>
             </c:if>
         </c:forEach>
-
-
-
-
-
-
-          <%--  <c:forEach items="${newsByTypeList}" var="newsList" varStatus="i">
-                <c:if test="${i.index%3==0}">
-                    <div class="row">
-                </c:if>
-
-
-                        <c:forEach items="${typeList}" var="type">
-
-                                <div class="col-md-4">
-                                <div class="data_list news_list">
-                                <div class="dataHeader">${type.typeName}<span class="more"><a href="#?${type.typeId}">更多...</a></span></div>
-                                <div class="datas">
-                                <ul>
-
-
-                <c:forEach items="${newsList}" var="news" varStatus="newsIndex">
-                    <c:if test="${newsIndex.index.typeId==type.typeId}">
-                    <li>
-                        <a href="#?${news.newsId}" title="${news.title}">
-                            [ <fmt:formatDate value="${news.publishDate}" pattern="MM-dd"/> ]&nbsp;
-                                ${fn:substring(news.title,0,12)}</a>
-                    </li>
-                    </c:if>
-                </c:forEach>
-
-                        </ul>
-                        </div>
-                        </div>
-                        </div>
-                        </c:forEach>
-                <c:if test="${i.index%3==2 || i.last}">
-                    </div>
-                </c:if>
-            </c:forEach>--%>
-        <jsp:include page="foreground/commons/link.jsp"></jsp:include>
-        <jsp:include page="foreground/commons/footer.jsp"></jsp:include>
+    <jsp:include page="foreground/commons/link.jsp"></jsp:include>
+    <jsp:include page="foreground/commons/footer.jsp"></jsp:include>
     </div>
-
   </body>
-  <%--<script>
-      $(function(){
-          var nav = document.getElementsByClassName("nav")[0];
-          var olis = nav.getElementsByTagName("li");
-          for (var i=0; i<olis.length;i++){
-              olis[i].onclick=function (ev) {
-                  for (var j = 0; j <olis.length ; j++) {
-                      olis[j].className="";
-                  }
-                  this.className="active";
-              }
-          }
-      })
-  </script>--%>
 </html>
