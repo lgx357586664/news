@@ -2,6 +2,7 @@ package com.zr.dao.daoImpl;
 
 import com.zr.dao.CommentDao;
 import com.zr.entity.Comment;
+import com.zr.entity.PageBean;
 import com.zr.framework.DataSourceUtil;
 import com.zr.framework.JdbcUtils;
 import org.apache.commons.dbutils.QueryRunner;
@@ -63,7 +64,7 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public List<Comment> findAll() {
-        String sql="select *from comment order by comment_date desc";
+        String sql="select c.*,n.title title from comment c,news n where c.news_id=n.news_id";
         try {
             List<Comment> commentList = qr.query(JdbcUtils.getConnection(), sql, new BeanListHandler<>(Comment.class));
             return commentList;
@@ -102,6 +103,20 @@ public class CommentDaoImpl implements CommentDao {
             JdbcUtils.close();
         }
         return 0;
+    }
+
+    @Override
+    public List<Comment> queryByPage(PageBean pageBean) {
+        String sql="select c.*,n.title title from comment c,news n where c.news_id=n.news_id  limit ?,?";
+        try {
+            List<Comment> commentList = qr.query(JdbcUtils.getConnection(), sql, new BeanListHandler<>(Comment.class), pageBean.getIndex(), pageBean.getPageCount());
+            return commentList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.close();
+        }
+        return null;
     }
 
 }

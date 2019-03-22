@@ -12,7 +12,7 @@ public class NewsType {
         return typeId;
     }
 
-    public void setTypeId(int typeId) {
+    public void setType_id(int typeId) {
         this.typeId = typeId;
     }
 
@@ -20,7 +20,7 @@ public class NewsType {
         return typeName;
     }
 
-    public void setTypeName(String typeName) {
+    public void setType_name(String typeName) {
         this.typeName = typeName;
     }
 
@@ -29,6 +29,10 @@ public class NewsType {
 
     public NewsType(int typeId, String typeName) {
         this.typeId = typeId;
+        this.typeName = typeName;
+    }
+
+    public NewsType(String typeName) {
         this.typeName = typeName;
     }
 }

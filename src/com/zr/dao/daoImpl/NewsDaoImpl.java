@@ -16,7 +16,8 @@ import java.util.List;
 public class NewsDaoImpl implements NewsDao {
     @Override
     public List<News> findAll() {
-        return null;
+        String sql ="select * from news ";
+        return getNewsList(sql);
     }
 
     @Override

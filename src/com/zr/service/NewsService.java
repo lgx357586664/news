@@ -68,4 +68,5 @@ public class NewsService {
         list.add(downNews);
         return list;
     }
+    public List<News> findAll(){return dao.findAll();}
 }

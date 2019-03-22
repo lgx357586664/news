@@ -9,6 +9,7 @@ import java.util.Date;
 public class Comment {
     private int cId;
     private int newsId;
+    private String title;
     private String content;
     private String ipAddr;
     private Date commentDate;
@@ -22,7 +23,13 @@ public class Comment {
         this.ipAddr = ipAddr;
         this.commentDate = commentDate;
     }
+    public String getTitle() {
+        return title;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
     public int getcId() {
         return cId;
     }

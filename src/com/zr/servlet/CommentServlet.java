@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.zr.entity.Comment;
 import com.zr.entity.PageBean;
 import com.zr.service.CommentService;
+import com.zr.util.JsonUtil;
 import com.zr.util.StringUtil;
 
 import javax.servlet.ServletException;
@@ -47,18 +48,18 @@ public class CommentServlet extends HttpServlet {
     protected void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cId = request.getParameter("cId");
         int i = commentService.deleteComment(Integer.parseInt(cId));
-        response.getWriter().print(""+i);
+        response.getWriter().print(i);
     }
     protected void query(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Comment> commentList = commentService.findAll();
-        JSONArray jsonArray = (JSONArray)JSONArray.toJSON(commentList);
-        JSONObject array=new JSONObject();
-        array.put("code",0);
-        array.put("msg","");
-        array.put("count",jsonArray.size());
-        array.put("data",jsonArray);
-        response.getWriter().print(array);
-
+        String page = request.getParameter("page"); //页码
+        String limit = request.getParameter("limit"); // 每页条数
+        PageBean pageBean=new PageBean();
+        pageBean.setPageIndex(Integer.parseInt(page));
+        pageBean.setPageCount(Integer.parseInt(limit));
+        pageBean.setCount(commentService.getCount());
+        List<Comment> commentList = commentService.queryByPage(pageBean);
+        JSONObject jsonObject = JsonUtil.getJsonObject(commentList, pageBean);
+        response.getWriter().print(jsonObject);
     }
     private void add(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String newsId = request.getParameter("newsId");

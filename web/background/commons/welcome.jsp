@@ -21,7 +21,16 @@
 <body>
 <div class="x-body layui-anim layui-anim-up">
     <blockquote class="layui-elem-quote">欢迎管理员：
-        <span class="x-red">test</span>！当前时间:2019-03-21 17:50:53</blockquote>
+        <span class="x-red">${username}</span>！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登录时间:${currentDate}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前时间:<span id="time"></span>
+    </blockquote>
+
+    <script>
+        document.getElementById('time').innerHTML = new Date().toLocaleString() + ' 星期' + '日一二三四五六'.charAt(new Date().getDay());
+        setInterval("document.getElementById('time').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());", 1000);
+    </script>
+
+
+
     <fieldset class="layui-elem-field">
         <legend>数据统计</legend>
         <div class="layui-field-box">
@@ -35,42 +44,42 @@
                                         <a href="javascript:;" class="x-admin-backlog-body">
                                             <h3>文章数</h3>
                                             <p>
-                                                <cite>166</cite></p>
+                                                <cite>${newsListCount}</cite></p>
                                         </a>
                                     </li>
                                     <li class="layui-col-xs2">
                                         <a href="javascript:;" class="x-admin-backlog-body">
-                                            <h3>类别数</h3>
+                                            <h3>新闻类别</h3>
                                             <p>
-                                                <cite>6</cite></p>
+                                                <cite>${newsTypeListCount}</cite></p>
                                         </a>
                                     </li>
                                     <li class="layui-col-xs2">
                                         <a href="javascript:;" class="x-admin-backlog-body">
                                             <h3>评论条数</h3>
                                             <p>
-                                                <cite>199</cite></p>
+                                                <cite>${commentListCount}</cite></p>
                                         </a>
                                     </li>
                                     <li class="layui-col-xs2">
                                         <a href="javascript:;" class="x-admin-backlog-body">
-                                            <h3>点赞数</h3>
+                                            <h3>赞助商</h3>
                                             <p>
-                                                <cite>67</cite></p>
+                                                <cite>${linkListCount}</cite></p>
                                         </a>
                                     </li>
                                     <li class="layui-col-xs2">
                                         <a href="javascript:;" class="x-admin-backlog-body">
-                                            <h3>今日访问次数</h3>
+                                            <h3>点击访问数</h3>
                                             <p>
-                                                <cite>167</cite></p>
+                                                <cite>${clickCount}</cite></p>
                                         </a>
                                     </li>
                                     <li class="layui-col-xs2">
                                         <a href="javascript:;" class="x-admin-backlog-body">
-                                            <h3>访问ip总数</h3>
+                                            <h3>访问ip</h3>
                                             <p>
-                                                <cite>500</cite></p>
+                                                <cite>${ipCount}</cite></p>
                                         </a>
                                     </li>
                                 </ul>

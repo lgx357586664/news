@@ -3,6 +3,7 @@ package com.zr.service;
 import com.zr.dao.CommentDao;
 import com.zr.dao.daoImpl.CommentDaoImpl;
 import com.zr.entity.Comment;
+import com.zr.entity.PageBean;
 
 import java.util.List;
 
@@ -29,4 +30,6 @@ public class CommentService {
         return dao.deleteComment(cId);
     }
     public int deleteComments(int newsId){return dao.deleteComments(newsId);}
+
+    public List<Comment> queryByPage(PageBean pageBean){return dao.queryByPage(pageBean);}
 }

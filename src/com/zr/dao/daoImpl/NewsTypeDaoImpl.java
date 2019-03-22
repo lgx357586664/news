@@ -1,9 +1,12 @@
 package com.zr.dao.daoImpl;
 
 import com.zr.dao.NewsTypeDao;
+import com.zr.entity.Comment;
 import com.zr.entity.NewsType;
+import com.zr.entity.PageBean;
 import com.zr.framework.JdbcUtils;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -126,5 +129,19 @@ public class NewsTypeDaoImpl implements NewsTypeDao {
             JdbcUtils.close();
         }
         return 0;
+    }
+
+    @Override
+    public List<NewsType> queryByPage(PageBean pageBean) {
+        String sql="select * from news_type   limit ?,?";
+        try {
+            List<NewsType> newsTypeList = qr.query(JdbcUtils.getConnection(), sql, new BeanListHandler<>(NewsType.class), pageBean.getIndex(), pageBean.getPageCount());
+            return newsTypeList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.close();
+        }
+        return null;
     }
 }

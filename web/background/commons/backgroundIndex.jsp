@@ -23,7 +23,7 @@
 <body>
 <!-- 顶部开始 -->
 <div class="container">
-    <div class="logo"><a href="./index.html">天天新闻 v1.0</a></div>
+    <div class="logo"><a href="<%=request.getContextPath()%>/goIndex">天天新闻 v1.0</a></div>
     <div class="left_open">
         <i title="展开左侧栏" class="iconfont">&#xe699;</i>
     </div>news.image.
@@ -31,9 +31,8 @@
         <li class="layui-nav-item">
             <a href="javascript:;">+新增</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                <dd><a onclick="x_admin_show('资讯','http://www.news.baidu.com')"><i class="iconfont">&#xe6a2;</i>资讯</a></dd>
-                <dd><a onclick="x_admin_show('图片','http://www.image.baidu.com')"><i class="iconfont">&#xe6a8;</i>图片</a></dd>
-                <dd><a onclick="x_admin_show('用户','http://www.baidu.com')"><i class="iconfont">&#xe6b8;</i>用户</a></dd>
+                <dd><a onclick="x_admin_show('资讯','http://news.baidu.com/')"><i class="iconfont">&#xe6a2;</i>资讯</a></dd>
+                <dd><a onclick="x_admin_show('图片','https://image.baidu.com/')"><i class="iconfont">&#xe6a8;</i>图片</a></dd>
             </dl>
         </li>
     </ul>
@@ -42,8 +41,8 @@
             <a href="javascript:;">admin</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
                 <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
-                <dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
-                <dd><a href="./login.html">退出</a></dd>
+                <dd><a onclick="x_admin_show('切换帐号','./login.jsp')">切换帐号</a></dd>
+                <dd><a href="<%=request.getContextPath()%>/OutServlet">退出</a></dd>
             </dl>
         </li>
         <li class="layui-nav-item to-index"><a href="<%=request.getContextPath()%>/goIndex">前台首页</a></li>
@@ -68,44 +67,6 @@
                             <cite>会员列表</cite>
 
                         </a>
-                    </li >
-                    <li>
-                        <a _href="member-del.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>会员删除</cite>
-
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <i class="iconfont">&#xe70b;</i>
-                            <cite>会员管理</cite>
-                            <i class="iconfont nav_right">&#xe697;</i>
-                        </a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a _href="xxx.html">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>会员列表</cite>
-
-                                </a>
-                            </li >
-                            <li>
-                                <a _href="xx.html">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>会员删除</cite>
-
-                                </a>
-                            </li>
-                            <li>
-                                <a _href="xx.html">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>等级管理</cite>
-
-                                </a>
-                            </li>
-
-                        </ul>
                     </li>
                 </ul>
             </li>
@@ -123,7 +84,7 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="<%=request.getContextPath()%>/background/news/newsAdd.jsp">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>新闻信息添加</cite>
                         </a>

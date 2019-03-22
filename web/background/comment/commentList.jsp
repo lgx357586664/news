@@ -44,6 +44,9 @@
         <a class="layui-btn layui-btn-xs" lay-event="delall">批量删除</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     </script>
+    <script type="text/html" id="commentTime">
+        {{ dateFormat(d.commentDate) }}
+    </script>
 </div>
 <script>
     layui.use('table', function(){
@@ -56,11 +59,12 @@
             ,title: '新闻评论表'
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
-                ,{field:'cId', title:'评论编号', width:'8%', fixed: 'left', unresize: true, sort: true}
-                ,{field:'newsId', title:'新闻编号', width:'8%', fixed: 'left', unresize: true, sort: true}
+                ,{field:'cId', title:'ID', width:'7%', fixed: 'left', unresize: true, sort: true}
+                ,{field:'newsId', title:'新闻编号', width:'7%', fixed: 'left', unresize: true, sort: true}
+                ,{field:'title', title:'新闻标题', width:'18%'}
                 ,{field:'content', title:'评论内容',edit: 'text'}
-                ,{field:'ipAddr', title:'IP', width:'13%'}
-                ,{field:'commentDate', title:'评论时间', width:'13%',sort: true}
+                ,{field:'ipAddr', title:'IP', width:'10%',sort: true}
+                ,{field:'commentDate', title:'评论时间', width:'11%',sort: true,templet:'#commentTime'}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:'10%'}
             ]]
             ,page: true

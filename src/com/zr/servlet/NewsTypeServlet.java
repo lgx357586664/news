@@ -2,10 +2,13 @@ package com.zr.servlet;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.zr.entity.Comment;
 import com.zr.entity.NewsType;
+import com.zr.entity.PageBean;
 import com.zr.entity.ResultCode;
 import com.zr.service.NewsService;
 import com.zr.service.NewsTypeService;
+import com.zr.util.JsonUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,24 +43,20 @@ public class NewsTypeServlet extends HttpServlet {
         }
     }
     protected void query(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
-        List<NewsType> typeList = service.findAll();
-        JSONArray jsonString = (JSONArray)JSONArray.toJSON(typeList);;
-        JSONObject array =new JSONObject();
-        array.put("code",0);
-        //可写可不写
-        array.put("msg","");
-        array.put("count",jsonString.size());
-        array.put("data",jsonString);
-        response.getWriter().print(array);
+        String page = request.getParameter("page"); //页码
+        String limit = request.getParameter("limit"); // 每页条数
+        PageBean pageBean=new PageBean();
+        pageBean.setPageIndex(Integer.parseInt(page));
+        pageBean.setPageCount(Integer.parseInt(limit));
+        pageBean.setCount(service.findAll().size());
+        List<NewsType> newsTypeList = service.queryByPage(pageBean);
+        JSONObject jsonObject = JsonUtil.getJsonObject(newsTypeList, pageBean);
+        response.getWriter().print(jsonObject);
     }
     protected void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String typeName = request.getParameter("typeName");
-        NewsType newsType=new NewsType();
-        newsType.setTypeName(typeName);
+        NewsType newsType=new NewsType(typeName);
         int i = service.addNewsType(newsType);
-        System.out.println(i);
         response.getWriter().print(""+i);
     }
     protected void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
